@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(mBinding.root)
 
         mBinding.btnSave.setOnClickListener {
-            val store = Store(name = mBinding.etName.text.toString().trim())
+            val store = StoreEntity(name = mBinding.etName.text.toString().trim())
             mAdapter.add(store)
         }
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     /*
      * OnClickListener
      */
-    override fun onClick(store: Store) {
+    override fun onClick(store: StoreEntity) {
 
     }
 }
