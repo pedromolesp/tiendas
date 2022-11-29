@@ -7,13 +7,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stores.databinding.ItemViewBinding
 
-class StoreAdapter(private var stores: MutableList<StoreEntity>, private var listener: OnClickListener) :
+class StoreAdapter(
+    private var stores: MutableList<StoreEntity>,
+    private var listener: OnClickListener
+) :
     RecyclerView.Adapter<StoreAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemViewBinding.bind(view)
         fun setListener(store: StoreEntity) {
-            binding.root.setOnClickListener { listener.onClick(store) }
-            binding.cbFavorite.setOnClickListener{
+            with(binding.root) {
+                setOnClickListener { listener.onClick(store) }
+                setOnLongClickListener {
+                    listener.onDeleteStore(store)
+                    true
+                }
+            }
+
+            binding.cbFavorite.setOnClickListener {
                 listener.onFavoriteStore(store)
             }
         }
@@ -51,9 +61,17 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
 
     fun update(store: StoreEntity) {
         val index = stores.indexOf(store)
-        if(index != -1){
-            stores.set(index,store)
+        if (index != -1) {
+            stores.set(index, store)
             notifyItemChanged(index)
+        }
+    }
+
+    fun delete(store: StoreEntity) {
+        val index = stores.indexOf(store)
+        if (index != -1) {
+            stores.removeAt(index)
+            notifyItemRemoved(index)
         }
     }
 }
