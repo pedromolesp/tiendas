@@ -65,4 +65,14 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             }
         }
     }
+
+    override fun onDeleteStore(store: StoreEntity) {
+        doAsync {
+
+            StoreApplication.database.storeDao().deleteStore(store)
+            uiThread {
+                mAdapter.delete(store)
+            }
+        }
+    }
 }
