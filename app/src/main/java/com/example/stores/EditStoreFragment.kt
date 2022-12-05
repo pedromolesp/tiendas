@@ -16,4 +16,11 @@ class EditStoreFragment : Fragment() {
         mBinding = FragmentEditStoreBinding.inflate(inflater, container, false)
         return mBinding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val activity = activity as MainActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.title = getString(R.string.edit_store_title_add)
+    }
 }
