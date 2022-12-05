@@ -72,7 +72,7 @@
                 android:maxLines="@integer/liner_url_website"
                 android:minLines="@integer/liner_url_website"
                 android:textAppearance="?attr/textAppearanceCaption"
-                android:textColor="@color/color_link"
+                android:textColor="@color/color_link"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
