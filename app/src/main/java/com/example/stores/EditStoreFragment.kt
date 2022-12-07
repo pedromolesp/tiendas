@@ -19,7 +19,7 @@ class EditStoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         mActivity = activity as MainActivity
+        mActivity = activity as MainActivity
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mActivity?.supportActionBar?.title = getString(R.string.edit_store_title_add)
         setHasOptionsMenu(true)
@@ -34,13 +34,13 @@ class EditStoreFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return when(item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
                 mActivity?.onBackPressed()
                 true
             }
             R.id.action_save -> {
-               Snackbar.make(mBinding.root, R.string.saved_correcly,Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(mBinding.root, R.string.saved_correcly, Snackbar.LENGTH_SHORT).show()
                 true
             }
             else -> {
