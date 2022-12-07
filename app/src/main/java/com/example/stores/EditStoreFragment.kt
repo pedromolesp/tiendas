@@ -1,7 +1,6 @@
 package com.example.stores
 
 import android.content.Context
-import android.inputmethodservice.InputMethodService
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -51,12 +50,13 @@ class EditStoreFragment : Fragment() {
                     website = mBinding.etWebsite.text.toString().trim()
                 )
                 doAsync {
-                    StoreApplication.database.storeDao().addStore(store)
+                   store.id = StoreApplication.database.storeDao().addStore(store)
                     uiThread {
+                        mActivity?.addStore(store)
                         hideKeyboard()
                         Snackbar.make(mBinding.root, R.string.saved_correcly, Snackbar.LENGTH_SHORT)
                             .show()
-                            mActivity?.onBackPressed()
+                        mActivity?.onBackPressed()
                     }
                 }
                 true
@@ -69,9 +69,10 @@ class EditStoreFragment : Fragment() {
         //return super.onOptionsItemSelected(item)
 
     }
-    private fun hideKeyboard(){
+
+    private fun hideKeyboard() {
         val imm = mActivity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(requireView().windowToken,0)
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
 
     }
 
@@ -79,6 +80,7 @@ class EditStoreFragment : Fragment() {
         hideKeyboard()
         super.onDestroyView()
     }
+
     override fun onDestroy() {
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mActivity?.supportActionBar?.title = getString(R.string.app_name)
