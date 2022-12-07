@@ -7,7 +7,7 @@ import com.example.stores.databinding.ActivityMainBinding
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class MainActivity : AppCompatActivity(), OnClickListener {
+class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mAdapter: StoreAdapter
@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         fragmentTransaction.add(R.id.containerMain, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-        mBinding.fabAdd.hide()
+//        mBinding.fabAdd.hide()
+        hideFab()
     }
 
     private fun setupRecyclerView() {
@@ -87,5 +88,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 mAdapter.delete(store)
             }
         }
+    }
+/*
+* MainAux
+* */
+    override fun hideFab(isVisible: Boolean) {
+        if(isVisible) mBinding.fabAdd.show( ) else mBinding.fabAdd.hide()
     }
 }
