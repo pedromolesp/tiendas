@@ -48,9 +48,12 @@ class StoreAdapter(
     }
 
     override fun getItemCount(): Int = stores.size
+
     fun add(store: StoreEntity) {
-        stores.add(store)
-        notifyDataSetChanged()
+        if (!stores.contains(store)) {
+            stores.add(store)
+            notifyItemInserted(stores.size)
+        }
     }
 
     fun setStores(stores: MutableList<StoreEntity>) {

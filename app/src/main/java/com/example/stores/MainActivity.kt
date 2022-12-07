@@ -95,4 +95,12 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
     override fun hideFab(isVisible: Boolean) {
         if(isVisible) mBinding.fabAdd.show( ) else mBinding.fabAdd.hide()
     }
+
+    override fun addStore(storeEntity: StoreEntity) {
+        mAdapter.add(storeEntity)
+    }
+
+    override fun updateStore(storeEntity: StoreEntity) {
+        TODO("Not yet implemented")
+    }
 }
