@@ -4,7 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.stores.databinding.FragmentEditStoreBinding
 import com.google.android.material.snackbar.Snackbar
 import org.jetbrains.anko.doAsync
@@ -27,6 +31,11 @@ class EditStoreFragment : Fragment() {
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mActivity?.supportActionBar?.title = getString(R.string.edit_store_title_add)
         setHasOptionsMenu(true)
+
+        mBinding.etPhotoUrl.addTextChangedListener {
+            Glide.with(this).load(mBinding.etPhotoUrl.text.toString()).diskCacheStrategy(
+                DiskCacheStrategy.ALL).centerCrop().into(mBinding.imgPhoto)
+        }
 
     }
 
@@ -54,8 +63,9 @@ class EditStoreFragment : Fragment() {
                     uiThread {
                         mActivity?.addStore(store)
                         hideKeyboard()
-                        Snackbar.make(mBinding.root, R.string.saved_correcly, Snackbar.LENGTH_SHORT)
-                            .show()
+//                        Snackbar.make(mBinding.root, R.string., Snackbar.LENGTH_SHORT)
+//                            .show()
+                        Toast.makeText(mActivity,R.string.saved_correcly, Toast.LENGTH_SHORT).show()
                         mActivity?.onBackPressed()
                     }
                 }
