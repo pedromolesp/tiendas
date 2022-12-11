@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.stores.databinding.FragmentEditStoreBinding
-import com.google.android.material.snackbar.Snackbar
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -34,7 +33,8 @@ class EditStoreFragment : Fragment() {
 
         mBinding.etPhotoUrl.addTextChangedListener {
             Glide.with(this).load(mBinding.etPhotoUrl.text.toString()).diskCacheStrategy(
-                DiskCacheStrategy.ALL).centerCrop().into(mBinding.imgPhoto)
+                DiskCacheStrategy.ALL
+            ).centerCrop().into(mBinding.imgPhoto)
         }
 
     }
@@ -56,16 +56,18 @@ class EditStoreFragment : Fragment() {
                 val store = StoreEntity(
                     name = mBinding.etName.text.toString().trim(),
                     phone = mBinding.etPhone.text.toString().trim(),
-                    website = mBinding.etWebsite.text.toString().trim()
+                    website = mBinding.etWebsite.text.toString().trim(),
+                    photoUrl = mBinding.etPhotoUrl.text.toString().trim()
                 )
                 doAsync {
-                   store.id = StoreApplication.database.storeDao().addStore(store)
+                    store.id = StoreApplication.database.storeDao().addStore(store)
                     uiThread {
                         mActivity?.addStore(store)
                         hideKeyboard()
 //                        Snackbar.make(mBinding.root, R.string., Snackbar.LENGTH_SHORT)
 //                            .show()
-                        Toast.makeText(mActivity,R.string.saved_correcly, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mActivity, R.string.saved_correcly, Toast.LENGTH_SHORT)
+                            .show()
                         mActivity?.onBackPressed()
                     }
                 }

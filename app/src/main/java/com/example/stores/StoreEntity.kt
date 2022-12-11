@@ -9,5 +9,6 @@ data class StoreEntity(
     val name: String = "",
     val phone: String = "",
     val website: String = "",
+    var photoUrl:String,
     var isFavorite: Boolean = false
 )
