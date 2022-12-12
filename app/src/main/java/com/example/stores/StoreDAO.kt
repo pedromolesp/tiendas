@@ -12,7 +12,10 @@ interface StoreDAO {
     fun getAllStores(): MutableList<StoreEntity>
 
     @Insert
-    fun addStore(storeEntity: StoreEntity):Long
+    fun addStore(storeEntity: StoreEntity): Long
+
+    @Query("SELECT * FROM StoreEntity WHERE id = :id")
+    fun getStoreById(id: Long): StoreEntity
 
     @Update
     fun updateStore(storeEntity: StoreEntity)
