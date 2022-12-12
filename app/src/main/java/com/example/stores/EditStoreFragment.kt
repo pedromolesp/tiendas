@@ -16,8 +16,8 @@ import org.jetbrains.anko.uiThread
 class EditStoreFragment : Fragment() {
     private lateinit var mBinding: FragmentEditStoreBinding
     private var mActivity: MainActivity? = null
-    private var mIsEditMode:Boolean = false
-    private var mStoreEntity:StoreEntity? = null
+    private var mIsEditMode: Boolean = false
+    private var mStoreEntity: StoreEntity? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,11 +28,11 @@ class EditStoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = arguments?.getLong(getString(R.string.arg_id),0)
-        if(id!= null && id != 0L){
+        val id = arguments?.getLong(getString(R.string.arg_id), 0)
+        if (id != null && id != 0L) {
             mIsEditMode = true
             getStore(id)
-        }else{
+        } else {
             Toast.makeText(activity, id.toString(), Toast.LENGTH_SHORT).show()
 
         }
@@ -53,8 +53,19 @@ class EditStoreFragment : Fragment() {
         doAsync {
             mStoreEntity = StoreApplication.database.storeDao().getStoreById(id)
             uiThread {
-
+                if (mStoreEntity != null) setUiStore(mStoreEntity!!)
             }
+        }
+    }
+
+    private fun setUiStore(storeEntity: StoreEntity) {
+        with(mBinding) {
+            etName.setText(storeEntity.name)
+            etPhone.setText(storeEntity.phone)
+            etWebsite.setText(storeEntity.website)
+            etPhotoUrl.setText(storeEntity.photoUrl)
+            Glide.with(requireActivity()).load(storeEntity.photoUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(imgPhoto)
         }
     }
 
