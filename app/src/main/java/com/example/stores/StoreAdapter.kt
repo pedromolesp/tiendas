@@ -18,7 +18,7 @@ class StoreAdapter(
         val binding = ItemViewBinding.bind(view)
         fun setListener(store: StoreEntity) {
             with(binding.root) {
-                setOnClickListener { listener.onClick(store) }
+                setOnClickListener { listener.onClick(store.id) }
                 setOnLongClickListener {
                     listener.onDeleteStore(store)
                     true
