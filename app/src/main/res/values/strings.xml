@@ -13,4 +13,6 @@
     <string name="menu_save">Añadir</string>
     <string name="saved_correcly">Tienda agregada correctamente</string>
     <string name="arg_id">arg_id</string>
+    <string name="updated_store">Tienda actualizada</string>
+    <string name="created_store">Tienda añadida</string>
 </resources>
