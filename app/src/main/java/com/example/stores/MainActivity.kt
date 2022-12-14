@@ -2,6 +2,7 @@ package com.example.stores
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.stores.databinding.ActivityMainBinding
@@ -19,13 +20,13 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-       /* mBinding.btnSave.setOnClickListener {
-            val store = StoreEntity(name = mBinding.etName.text.toString().trim())
-            Thread {
-                StoreApplication.database.storeDao().addStore(store)
-            }.start()
-            mAdapter.add(store)
-        }*/
+        /* mBinding.btnSave.setOnClickListener {
+             val store = StoreEntity(name = mBinding.etName.text.toString().trim())
+             Thread {
+                 StoreApplication.database.storeDao().addStore(store)
+             }.start()
+             mAdapter.add(store)
+         }*/
         mBinding.fabAdd.setOnClickListener {
             launchEditFragment()
         }
@@ -33,9 +34,9 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
         setupRecyclerView()
     }
 
-    private fun launchEditFragment(args:Bundle? = null) {
+    private fun launchEditFragment(args: Bundle? = null) {
         val fragment = EditStoreFragment()
-        if(args != null){
+        if (args != null) {
             fragment.arguments = args
         }
         val fragmentManager = supportFragmentManager
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
      */
     override fun onClick(id: Long) {
         val args = Bundle()
-        args.putLong(getString(R.string.arg_id),id)
+        args.putLong(getString(R.string.arg_id), id)
         launchEditFragment(args)
     }
 
@@ -87,21 +88,35 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
     }
 
     override fun onDeleteStore(store: StoreEntity) {
-        MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_delete_title).setPositiveButton(R.string.dialog_delete_confirm) { DialogInterface, i ->
-            doAsync {
-
-                StoreApplication.database.storeDao().deleteStore(store)
-                uiThread {
-                    mAdapter.delete(store)
-                }
+        val item = arrayOf("Eliminar", "Llamar", "Ir a la web")
+        MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_opcions_title).setItems(item
+        ) { dialogInterface, i ->
+            when (i) {
+                0 -> confirmDeleteDialog(store)
+                1 -> Toast.makeText(this, "Llamar...", Toast.LENGTH_SHORT).show()
+                2 -> Toast.makeText(this, "Sitio web", Toast.LENGTH_SHORT).show()
             }
-        }.setNegativeButton(R.string.dialog_delete_cancel, null).show()
+        }.show()
     }
-/*
-* MainAux
-* */
+
+    private fun confirmDeleteDialog(storeEntity: StoreEntity) {
+        MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_delete_title)
+            .setPositiveButton(R.string.dialog_delete_confirm) { DialogInterface, i ->
+                doAsync {
+
+                    StoreApplication.database.storeDao().deleteStore(storeEntity)
+                    uiThread {
+                        mAdapter.delete(storeEntity)
+                    }
+                }
+            }.setNegativeButton(R.string.dialog_delete_cancel, null).show()
+    }
+
+    /*
+    * MainAux
+    * */
     override fun hideFab(isVisible: Boolean) {
-        if(isVisible) mBinding.fabAdd.show( ) else mBinding.fabAdd.hide()
+        if (isVisible) mBinding.fabAdd.show() else mBinding.fabAdd.hide()
     }
 
     override fun addStore(storeEntity: StoreEntity) {
