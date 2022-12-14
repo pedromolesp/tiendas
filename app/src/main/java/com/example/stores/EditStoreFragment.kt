@@ -50,6 +50,17 @@ class EditStoreFragment : Fragment() {
             ).centerCrop().into(mBinding.imgPhoto)
         }
 
+        mBinding.etName.addTextChangedListener {
+            validateFields(mBinding.tilName)
+        }
+        mBinding.etPhone.addTextChangedListener {
+            validateFields(mBinding.tilPhone)
+        }
+        mBinding.etPhotoUrl.addTextChangedListener {
+            validateFields(mBinding.tilPhotoUrl)
+        }
+
+
     }
 
     private fun getStore(id: Long) {
@@ -87,7 +98,13 @@ class EditStoreFragment : Fragment() {
                 true
             }
             R.id.action_save -> {
-                if (mStoreEntity != null && validateFields(mBinding.tilPhotoUrl,mBinding.tilWebsite,mBinding.tilPhone,mBinding.tilName)) {
+                if (mStoreEntity != null && validateFields(
+                        mBinding.tilPhotoUrl,
+                        mBinding.tilWebsite,
+                        mBinding.tilPhone,
+                        mBinding.tilName
+                    )
+                ) {
 
                     with(mStoreEntity!!) {
                         name = mBinding.etName.text.toString().trim()
@@ -135,19 +152,25 @@ class EditStoreFragment : Fragment() {
         //return super.onOptionsItemSelected(item)
 
     }
-private fun validateFields(vararg  textFields:TextInputLayout):Boolean{
-    var isValid = true
-    for (textField in textFields){
-        if(textField.editText?.text.toString().trim().isEmpty()){
-            textField.error = getString(R.string.helper_required)
-            textField.editText?.requestFocus()
-            isValid = false
-        }
-    }
-    if(!isValid) Snackbar.make(mBinding.root, R.string.edit_store_message_valid, Snackbar.LENGTH_SHORT).show()
-    return isValid
 
-}
+    private fun validateFields(vararg textFields: TextInputLayout): Boolean {
+        var isValid = true
+        for (textField in textFields) {
+            if (textField.editText?.text.toString().trim().isEmpty()) {
+                textField.error = getString(R.string.helper_required)
+                textField.editText?.requestFocus()
+                isValid = false
+            } else textField.error = null
+        }
+        if (!isValid) Snackbar.make(
+            mBinding.root,
+            R.string.edit_store_message_valid,
+            Snackbar.LENGTH_SHORT
+        ).show()
+        return isValid
+
+    }
+
     private fun validateFields(): Boolean {
         var isValid = true
         /*if(mBinding.etPhotoUrl.text.toString().trim().isEmpty()){
@@ -155,17 +178,17 @@ private fun validateFields(vararg  textFields:TextInputLayout):Boolean{
             mBinding.etPhotoUrl.requestFocus()
             isValid = false
         }*/
-        if(mBinding.etWebsite.text.toString().trim().isEmpty()){
+        if (mBinding.etWebsite.text.toString().trim().isEmpty()) {
             mBinding.tilWebsite.error = getString(R.string.helper_required)
             mBinding.etWebsite.requestFocus()
             isValid = false
         }
-        if(mBinding.etPhone.text.toString().trim().isEmpty()){
+        if (mBinding.etPhone.text.toString().trim().isEmpty()) {
             mBinding.tilPhone.error = getString(R.string.helper_required)
             mBinding.etPhone.requestFocus()
             isValid = false
         }
-        if(mBinding.etName.text.toString().trim().isEmpty()){
+        if (mBinding.etName.text.toString().trim().isEmpty()) {
             mBinding.tilName.error = getString(R.string.helper_required)
             mBinding.etName.requestFocus()
             isValid = false
