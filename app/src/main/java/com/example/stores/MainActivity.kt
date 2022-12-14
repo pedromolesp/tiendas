@@ -91,12 +91,13 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
 
     override fun onDeleteStore(store: StoreEntity) {
         val item = arrayOf("Eliminar", "Llamar", "Ir a la web")
-        MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_opcions_title).setItems(item
+        MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_opcions_title).setItems(
+            item
         ) { dialogInterface, i ->
             when (i) {
                 0 -> confirmDeleteDialog(store)
                 1 -> dial(store.phone)
-                2 -> Toast.makeText(this, "Sitio web", Toast.LENGTH_SHORT).show()
+                2 -> goToWebsite(store.website)
             }
         }.show()
     }
@@ -112,13 +113,28 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
                 }
             }.setNegativeButton(R.string.dialog_delete_cancel, null).show()
     }
-    private fun dial(phone:String){
+
+    private fun dial(phone: String) {
         val callIntent = Intent().apply {
             action = Intent.ACTION_DIAL
             data = Uri.parse("tel:$phone")
         }
         startActivity(callIntent)
     }
+
+    private fun goToWebsite(website: String) {
+        if (website.isEmpty()) {
+            Toast.makeText(this, R.string.no_website, Toast.LENGTH_LONG).show()
+
+        } else {
+            val websiteIntent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(website)
+            }
+            startActivity(websiteIntent)
+        }
+    }
+
     /*
     * MainAux
     *
