@@ -37,30 +37,39 @@ class EditStoreFragment : Fragment() {
         } else {
             mIsEditMode = false
             mStoreEntity = StoreEntity(name = "", phone = "", photoUrl = "")
-
         }
+
         mActivity = activity as MainActivity
         mActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mActivity?.supportActionBar?.title = getString(R.string.edit_store_title_add)
         setHasOptionsMenu(true)
 
-        mBinding.etPhotoUrl.addTextChangedListener {
-            Glide.with(this).load(mBinding.etPhotoUrl.text.toString()).diskCacheStrategy(
-                DiskCacheStrategy.ALL
-            ).centerCrop().into(mBinding.imgPhoto)
+        setChangedTextListeners()
+
+    }
+
+    private fun setChangedTextListeners() {
+        with(mBinding){
+            etPhotoUrl.addTextChangedListener {
+                loadImage(it.toString())
+            }
+            etName.addTextChangedListener {
+                validateFields(tilName)
+            }
+            etPhone.addTextChangedListener {
+                validateFields(tilPhone)
+            }
+            etPhotoUrl.addTextChangedListener {
+                validateFields(tilPhotoUrl)
+            }
         }
 
-        mBinding.etName.addTextChangedListener {
-            validateFields(mBinding.tilName)
-        }
-        mBinding.etPhone.addTextChangedListener {
-            validateFields(mBinding.tilPhone)
-        }
-        mBinding.etPhotoUrl.addTextChangedListener {
-            validateFields(mBinding.tilPhotoUrl)
-        }
 
-
+    }
+    private fun loadImage(url:String){
+        Glide.with(this).load(url).diskCacheStrategy(
+            DiskCacheStrategy.ALL
+        ).centerCrop().into(mBinding.imgPhoto)
     }
 
     private fun getStore(id: Long) {
