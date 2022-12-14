@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
         doAsync {
             StoreApplication.database.storeDao().updateStore(store)
             uiThread {
-                mAdapter.update(store)
+                updateStore(store)
             }
         }
     }
