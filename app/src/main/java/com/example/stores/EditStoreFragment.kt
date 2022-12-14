@@ -57,7 +57,6 @@ class EditStoreFragment : Fragment() {
             etPhotoUrl.addTextChangedListener {
                 loadImage(it.toString())
                 validateFields(tilPhotoUrl)
-
             }
             etName.addTextChangedListener {
                 validateFields(tilName)
