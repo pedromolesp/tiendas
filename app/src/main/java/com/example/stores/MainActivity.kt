@@ -1,6 +1,8 @@
 package com.example.stores
 
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -93,7 +95,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
         ) { dialogInterface, i ->
             when (i) {
                 0 -> confirmDeleteDialog(store)
-                1 -> Toast.makeText(this, "Llamar...", Toast.LENGTH_SHORT).show()
+                1 -> dial(store.phone)
                 2 -> Toast.makeText(this, "Sitio web", Toast.LENGTH_SHORT).show()
             }
         }.show()
@@ -101,9 +103,8 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
 
     private fun confirmDeleteDialog(storeEntity: StoreEntity) {
         MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_delete_title)
-            .setPositiveButton(R.string.dialog_delete_confirm) { DialogInterface, i ->
+            .setPositiveButton(R.string.dialog_delete_confirm) { _, _ ->
                 doAsync {
-
                     StoreApplication.database.storeDao().deleteStore(storeEntity)
                     uiThread {
                         mAdapter.delete(storeEntity)
@@ -111,9 +112,16 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
                 }
             }.setNegativeButton(R.string.dialog_delete_cancel, null).show()
     }
-
+    private fun dial(phone:String){
+        val callIntent = Intent().apply {
+            action = Intent.ACTION_DIAL
+            data = Uri.parse("tel:$phone")
+        }
+        startActivity(callIntent)
+    }
     /*
     * MainAux
+    *
     * */
     override fun hideFab(isVisible: Boolean) {
         if (isVisible) mBinding.fabAdd.show() else mBinding.fabAdd.hide()
