@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
     }
 
     override fun onDeleteStore(store: StoreEntity) {
-        val item = arrayOf("Eliminar", "Llamar", "Ir a la web")
+        val item = resources.getStringArray(R.array.array_options_item)
         MaterialAlertDialogBuilder(this).setTitle(R.string.dialog_opcions_title).setItems(
             item
         ) { dialogInterface, i ->
@@ -119,12 +119,8 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
             action = Intent.ACTION_DIAL
             data = Uri.parse("tel:$phone")
         }
-        if(callIntent.resolveActivity(packageManager)!= null){
+        startIntent(callIntent)
 
-            startActivity(callIntent)
-        }else{
-            Toast.makeText(this, R.string.call_error, Toast.LENGTH_LONG).show()
-        }
     }
 
     private fun goToWebsite(website: String) {
@@ -136,12 +132,16 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
                 action = Intent.ACTION_VIEW
                 data = Uri.parse(website)
             }
-            if(websiteIntent.resolveActivity(packageManager)!= null){
+            startIntent(websiteIntent)
+        }
+    }
 
-                startActivity(websiteIntent)
-            }else{
-                Toast.makeText(this, R.string.website_error, Toast.LENGTH_LONG).show()
-            }
+    private fun startIntent(intent: Intent) {
+        if (intent.resolveActivity(packageManager) != null) {
+
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, R.string.website_error, Toast.LENGTH_LONG).show()
         }
     }
 
