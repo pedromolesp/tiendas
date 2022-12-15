@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
     private fun setupRecyclerView() {
         mAdapter = StoreAdapter(mutableListOf(), this)
         mGridLayout = GridLayoutManager(this, resources.getInteger(R.integer.main_columns))
+
         getStore()
         mBinding.recyclerView.apply {
             setHasFixedSize(true)
