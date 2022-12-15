@@ -1,30 +1,28 @@
 <resources>
-    <string name="app_name">Tiendas</string>
-    <string name="description_img_photo">Imagen de la tienda</string>
+    <string name="app_name">Stores</string>
+    <string name="description_img_photo">Store image</string>
     <string name="description_store_add">Add Store</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hint_name">Nombre</string>
-    <string name="helper_required">Requerido</string>
-    <string name="hint_phone">Teléfono</string>
-    <string name="hint_website">Url sitio web</string>
-    <string name="url_img">Url de la imagen</string>
-    <string name="edit_store_title_add">Crear tienda</string>
-    <string name="menu_save">Añadir</string>
-    <string name="saved_correcly">Tienda agregada correctamente</string>
-    <string name="arg_id">arg_id</string>
-    <string name="updated_store">Tienda actualizada</string>
-    <string name="created_store">Tienda añadida</string>
-    <string name="edit_store_message_valid">Revise los campos requeridos</string>
-    <string name="edit_store_title_edit">Editar tienda</string>
-    <string name="dialog_delete_title">¿Eliminar tienda?</string>
-    <string name="dialog_delete_confirm">Eliminar</string>
-    <string name="dialog_delete_cancel">Cancelar</string>
-    <string name="dialog_opcions_title">¿Qué desea hacer?</string>
-    <string name="no_website">Esta tienda no cuenta con web</string>
-    <string name="call_error">No se encontró app para procesar</string>
-    <string name="website_error">Error al navegar a la web</string>
-    <string name="eliminar">Eliminar</string>
-    <string name="llamar">Llamar</string>
-    <string name="ir">Ir a la web</string>
+    <string name="hint_name">Name</string>
+    <string name="helper_required">Required</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_website">Url website</string>
+    <string name="url_img">Url image</string>
+    <string name="edit_store_title_add">Create store</string>
+    <string name="menu_save">Add</string>
+    <string name="saved_correcly">Store added correctly</string>
+    <string name="arg_id" translatable="false">arg_id</string>
+    <string name="updated_store">Store updated</string>
+    <string name="created_store">Store added</string>
+    <string name="edit_store_message_valid">Check required fields</string>
+    <string name="edit_store_title_edit">Edit store</string>
+    <string name="dialog_delete_title">Remove store?</string>
+    <string name="dialog_delete_confirm">Remove</string>
+    <string name="dialog_delete_cancel">Cancel</string>
+    <string name="dialog_opcions_title">¿What would you like to do?</string>
+    <string name="no_website">This store does not have an url</string>
+    <string name="call_error">Could not find and app</string>
+    <string name="website_error">Error navigating to the web</string>
+    <string name="eliminar">Remove</string>
+    <string name="llamar">Call</string>
+    <string name="ir">Go to the web</string>
 </resources>
