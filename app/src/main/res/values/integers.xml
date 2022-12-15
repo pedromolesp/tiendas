@@ -6,4 +6,5 @@
     <integer name="lines_min_lines">4</integer>
     <integer name="lines_max_lines">4</integer>
     <integer name="lines_url_photo">4</integer>
+    <integer name="main_columns">2</integer>
 </resources>
