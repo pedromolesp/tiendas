@@ -24,4 +24,7 @@
     <string name="no_website">Esta tienda no cuenta con web</string>
     <string name="call_error">No se encontró app para procesar</string>
     <string name="website_error">Error al navegar a la web</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="llamar">Llamar</string>
+    <string name="ir">Ir a la web</string>
 </resources>
